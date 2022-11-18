@@ -48,7 +48,7 @@ namespace JwtWebApi2
                 c.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
                     Description = @"Put **_ONLY_** your JWT Bearer token on textbox below!",
-                    BearerFormat = "JWT",
+                    //BearerFormat = "JWT",
                     In = ParameterLocation.Header,
                     Name = "JWT Authorization",
                     Type = SecuritySchemeType.Http,
@@ -62,6 +62,7 @@ namespace JwtWebApi2
                         {
                             In = ParameterLocation.Header,
                             Name = "Bearer",
+                            Scheme = JwtBearerDefaults.AuthenticationScheme,
                             Reference = new OpenApiReference
                             {
                                 Id = JwtBearerDefaults.AuthenticationScheme,
