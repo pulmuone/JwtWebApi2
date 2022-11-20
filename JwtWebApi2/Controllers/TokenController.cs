@@ -16,11 +16,13 @@ namespace JwtWebApi2.Controllers
         // Recommend to persistent this alone with the user records.
         // Based on the scenario, you might have 1 user, 1 refresh token or 1 user, multiple refresh tokens.
         static readonly ConcurrentDictionary<string, Guid> _refreshToken = new ConcurrentDictionary<string, Guid>();
-        private IConfiguration _configuration;
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<TokenController> _logger;
 
-        public TokenController(IConfiguration configuration)
+        public TokenController(IConfiguration configuration, ILogger<TokenController> logger)
         {
             _configuration = configuration;
+            this._logger = logger;
         }
 
         // Returns an JWT token when the login info is valid.
@@ -33,6 +35,8 @@ namespace JwtWebApi2.Controllers
         [HttpPost()]
         public IActionResult GetToken([FromBody] UserContract login)
         {
+            _logger.LogInformation($"Registration Attempt for {login.UserName}");
+
             AuthenticationResult authenticationResult = GetAuthenticationResult(login);
 
             if (authenticationResult is null)
