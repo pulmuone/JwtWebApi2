@@ -37,6 +37,10 @@ namespace JwtWebApi2.Controllers
         {
             _logger.LogInformation($"Registration Attempt for {login.UserName}");
 
+            int abc = 0;
+
+            //var temp = 10 / abc;
+
             AuthenticationResult authenticationResult = GetAuthenticationResult(login);
 
             if (authenticationResult is null)

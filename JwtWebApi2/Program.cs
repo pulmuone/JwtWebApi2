@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Serilog;
+using Serilog.Events;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
 using System.Text;
@@ -16,6 +17,18 @@ namespace JwtWebApi2
             var builder = WebApplication.CreateBuilder(args);
 
             builder.Host.UseSerilog((ctx, lc) => lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
+
+            //var logger = new LoggerConfiguration()
+            //    .MinimumLevel.Information()
+            //.MinimumLevel.Override("Microsoft", LogEventLevel.Information)
+            //.Enrich.FromLogContext()
+            //.WriteTo.Map(
+            //evt => evt.Level,
+            //(level, wt) => wt.File("Logs\\" + level + "-.log", rollingInterval: RollingInterval.Day))
+            //.CreateLogger();
+
+            //builder.Logging.ClearProviders();
+            //builder.Logging.AddSerilog(logger);
 
             builder.Services.AddControllers();
 
